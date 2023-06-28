@@ -6,5 +6,9 @@ public class Tarefas {
     public List<Tarefa> getTarefas() {
         return tarefas;
     }
+    public void adicionaTarefa(Tarefa tarefa) {
+        this.tarefas.add(tarefa);
+    }
+
 
 }
