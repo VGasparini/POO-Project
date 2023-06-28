@@ -20,13 +20,13 @@ public class Menu {
     }
     public void escolheTarefa(Integer opcao) {
         switch (opcao) {
-            case 1
+            case 1:
                 criaTarefa();
-            case 2
+            case 2:
                 alteraTarefa();
-            case 3
+            case 3:
                 removeTarefa();
-            case 4
+            case 4:
                 importaArquivo();
 
         }
