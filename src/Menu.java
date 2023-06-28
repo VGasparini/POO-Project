@@ -28,6 +28,7 @@ public class Menu {
                 removeTarefa();
             case 4:
                 importaArquivo();
+                System.out.println("Teste");
 
         }
     }
