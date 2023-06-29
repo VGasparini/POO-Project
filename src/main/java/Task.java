@@ -1,25 +1,29 @@
+package main.java;
+
+import main.java.type.TaskType;
+
 import java.time.LocalDate;
 
-public class Tarefa {
+public class Task {
     private String titulo;
     private String descricao;
     private LocalDate dataCadastro;
     private LocalDate dataVencimento;
-    private String status;
+    private TaskType status;
 
-    public Tarefa(String titulo, LocalDate dataVencimento) {
+    public Task(String titulo, Integer day, Integer month, Integer year, String status) {
         this.titulo = titulo;
-        this.dataCadastro = LocalDate.of(2023,8,6);
-        this.dataVencimento = dataVencimento;
-        this.status = "Pendente";
+        this.dataCadastro = LocalDate.now();
+        this.dataVencimento = LocalDate.of(year,month,day);
+        this.status.setDescricao(status);
     }
 
-    public Tarefa(String titulo, String descricao, LocalDate dataVencimento) {
+    public Task(String titulo, String descricao, Integer day, Integer month, Integer year, String status) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataCadastro = LocalDate.now();
-        this.dataVencimento = dataVencimento;
-        this.status = "Pendente";
+        this.dataVencimento = LocalDate.of(year,month,day);
+        this.status.setDescricao(status);
     }
 
     public String getTitulo() {
@@ -50,11 +54,4 @@ public class Tarefa {
         this.dataVencimento = dataVencimento;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
