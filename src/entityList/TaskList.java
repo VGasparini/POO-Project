@@ -1,6 +1,6 @@
 package entityList;
 
-import entities.Task;
+import entities.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

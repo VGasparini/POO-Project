@@ -1,4 +1,4 @@
-package entities;
+package entities.task;
 
 public class TaskStatus {
     private String descricao;

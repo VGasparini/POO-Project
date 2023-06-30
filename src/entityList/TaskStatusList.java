@@ -1,6 +1,6 @@
 package entityList;
 
-import entities.TaskStatus;
+import entities.task.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.List;
