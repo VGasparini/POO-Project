@@ -1,20 +1,23 @@
 package main;
 
-import entities.menu.user.User;
-import entityList.TaskList;
-import entityList.TaskStatusList;
+import main.domain.Lancamento;
+import main.domain.Menu;
+import main.domain.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        List<Lancamento> lancamentos = new ArrayList<>();
         User user = new User();
-        TaskList tarefas = new TaskList();
-        TaskStatusList status = new TaskStatusList();
-
-        /*
+        Menu menu = new Menu();
         Boolean online = true;
-        while (online) {
+
+        while(online) {
+            menu.menuPrincipal();
 
         }
-        */
+
     }
 }
