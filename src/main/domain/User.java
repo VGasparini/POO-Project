@@ -12,4 +12,8 @@ public class User {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
+    public Double inputUserDouble() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextDouble();
+    }
 }

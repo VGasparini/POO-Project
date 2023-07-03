@@ -15,8 +15,7 @@ public class Main {
         Boolean online = true;
 
         while(online) {
-            menu.menuPrincipal();
-
+            menu.menuPrincipal(lancamentos, user);
         }
 
     }
