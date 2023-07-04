@@ -2,8 +2,8 @@ package main.domain;
 
 import main.domain.enums.TipoLancamento;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
+import java.time.LocalDate;
+
 
 public class LancamentoDespesa extends Lancamento {
     private TipoLancamento tipo;
@@ -13,4 +13,8 @@ public class LancamentoDespesa extends Lancamento {
         this.tipo = TipoLancamento.DESPESA;
     }
 
+    public LancamentoDespesa(String descricao, Double valor, LocalDate vencimento) {
+        super(descricao, valor, vencimento);
+        this.tipo = TipoLancamento.DESPESA;
+    }
 }

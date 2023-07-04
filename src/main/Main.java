@@ -4,6 +4,7 @@ import main.domain.Lancamento;
 import main.domain.Menu;
 import main.domain.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,5 @@ public class Main {
                 online = false;
             }
         }
-
     }
 }
