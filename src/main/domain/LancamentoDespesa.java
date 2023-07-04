@@ -12,7 +12,5 @@ public class LancamentoDespesa extends Lancamento {
         super(descricao, valor, day, month, year);
         this.tipo = TipoLancamento.DESPESA;
     }
-    public String getTipo() {
-        return "DESPESA";
-    }
+
 }

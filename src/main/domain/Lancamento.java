@@ -18,23 +18,12 @@ public abstract class Lancamento {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public Double getValor() {
         return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
     }
 
     public LocalDate getVencimento() {
         return vencimento;
     }
 
-    public void setVencimento(LocalDate vencimento) {
-        this.vencimento = vencimento;
-    }
 }
