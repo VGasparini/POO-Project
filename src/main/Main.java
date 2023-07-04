@@ -15,7 +15,10 @@ public class Main {
         Boolean online = true;
 
         while(online) {
-            menu.menuPrincipal(lancamentos, user);
+            Boolean retorno =  menu.menuPrincipal(lancamentos, user);
+            if (!retorno) {
+                online = false;
+            }
         }
 
     }

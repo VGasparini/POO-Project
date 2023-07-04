@@ -1,12 +1,13 @@
 package main.domain;
 
-import java.time.LocalDate;
+import java.sql.SQLOutput;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
 
-    public void menuPrincipal(List<Lancamento> lista, User user) {
+    public Boolean menuPrincipal(List<Lancamento> lista, User user) {
         System.out.println(
                 "|---| Menu Principal |---|\n"        +
                 "1 - Cadastrar Lançamento\n"          +
@@ -20,8 +21,15 @@ public class Menu {
         switch (user.inputUserInteger()) {
             case 1:
                 menuCriaLancamento(lista, user);
-
+                break;
+            case 4:
+                menuVisualizarLancamentos(lista);
+                break;
+            case 7:
+                System.out.println("Encerrando Programa...");
+                return false;
         }
+        return true;
     }
     public void menuCriaLancamento(List<Lancamento> lista, User user) {
         List<Object> array = new ArrayList<>();
@@ -49,12 +57,29 @@ public class Menu {
             case 1:
                 lista.add(new LancamentoDespesa((String)array.get(1),
                         (Double)array.get(2), (Integer)array.get(3), (Integer)array.get(4), (Integer)array.get(5)));
-            case 2:
+                break;
+                case 2:
                 lista.add(new LancamentoReceita((String)array.get(1),
                         (Double)array.get(2), (Integer)array.get(3), (Integer)array.get(4), (Integer)array.get(5)));
+                break;
+            default:
+                System.out.println("Não foi adicionado nenhum lançamento!") ;
+                break;
         }
 
     }
 
+    public void menuVisualizarLancamentos(List<Lancamento> lista) {
+        System.out.println("|   Tipo   | Descricao |   Valor  | Vencimento |");
+        lista.forEach(lancamento -> {
+            String dataFormatada = lancamento.getVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            if (lancamento instanceof LancamentoDespesa) {
+                System.out.printf("| %s | %10s | %.2f | %s |\n", "DESPESA", lancamento.getDescricao(), lancamento.getValor(), dataFormatada);
+            }
+            else {
+                System.out.printf("| %s | %10s | %.2f | %s |\n", "RECEITA",lancamento.getDescricao(), lancamento.getValor(),dataFormatada);
+            }
+        });
+    }
 
 }
