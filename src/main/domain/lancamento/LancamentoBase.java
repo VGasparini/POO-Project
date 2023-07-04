@@ -1,20 +1,20 @@
-package main.domain;
+package main.domain.lancamento;
 
 
 import java.time.LocalDate;
 
-public abstract class Lancamento {
+public abstract class LancamentoBase {
     private String descricao;
     private Double valor;
     private LocalDate vencimento;
 
-    public Lancamento(String descricao, Double valor, Integer day, Integer month, Integer year) {
+    public LancamentoBase(String descricao, Double valor, Integer day, Integer month, Integer year) {
         this.descricao = descricao;
         this.valor = valor;
         this.vencimento = LocalDate.of(year, month, day);
     }
 
-    public Lancamento(String descricao, Double valor, LocalDate vencimento) {
+    public LancamentoBase(String descricao, Double valor, LocalDate vencimento) {
         this.descricao = descricao;
         this.valor = valor;
         this.vencimento = vencimento;

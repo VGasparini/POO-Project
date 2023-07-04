@@ -1,4 +1,9 @@
-package main.domain;
+package main.domain.menu;
+
+import main.domain.lancamento.LancamentoBase;
+import main.domain.lancamento.LancamentoDespesa;
+import main.domain.lancamento.LancamentoReceita;
+import main.domain.user.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Menu {
 
-    public Boolean menuPrincipal(List<Lancamento> lista, User user) {
+    public Boolean menuPrincipal(List<LancamentoBase> lista, User user) {
         System.out.println(
                 "|---| Menu Principal |---|\n"        +
                 "1 - Cadastrar Lançamento\n"          + // Funcionando
@@ -38,7 +43,7 @@ public class Menu {
         }
         return true;
     }
-    public void menuCriaLancamento(List<Lancamento> lista, User user) {
+    public void menuCriaLancamento(List<LancamentoBase> lista, User user) {
         List<Object> array = new ArrayList<>();
         System.out.println("|---| Cadastrar Lançamento |---|\n" +
                            "1 - DESPESA\n" +
@@ -65,17 +70,17 @@ public class Menu {
                 lista.add(new LancamentoDespesa((String)array.get(1),
                         (Double)array.get(2), (Integer)array.get(3), (Integer)array.get(4), (Integer)array.get(5)));
                 break;
-                case 2:
+            case 2:
                 lista.add(new LancamentoReceita((String)array.get(1),
-                        (Double)array.get(2), (Integer)array.get(3), (Integer)array.get(4), (Integer)array.get(5)));
-                break;
+                        (Double) array.get(2), (Integer) array.get(3), (Integer) array.get(4), (Integer) array.get(5)));
+                    break;
             default:
                 System.out.println("Não foi adicionado nenhum lançamento!") ;
                 break;
         }
     }
 
-    public void menuEditarLancamento(List<Lancamento> lista, User user) {
+    public void menuEditarLancamento(List<LancamentoBase> lista, User user) {
         menuVisualizarLancamentos(lista);
         Integer lancamentoParaEditar;
         Integer tipoEditado;
@@ -164,24 +169,24 @@ public class Menu {
         }
     }
 
-    public void menuRemoveLancamento(List<Lancamento> lista, User user) {
+    public void menuRemoveLancamento(List<LancamentoBase> lista, User user) {
         menuVisualizarLancamentos(lista);
         Integer lancamento;
         System.out.println("Digite qual lançamento gostaria de remover: ");
         lancamento = user.inputUserInteger();
         lista.remove(lancamento-1);
     }
-    public void menuVisualizarLancamentos(List<Lancamento> lista) {
+    public void menuVisualizarLancamentos(List<LancamentoBase> lista) {
         AtomicInteger i = new AtomicInteger();
         System.out.println("|   Tipo   | Descricao |   Valor  | Vencimento |");
-        lista.forEach(lancamento -> {
+        lista.forEach(lancamentoBase -> {
             i.addAndGet(1);
-            String dataFormatada = lancamento.getVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            if (lancamento instanceof LancamentoDespesa) {
-                System.out.printf(i.get() + "| %s | %10s | %.2f | %s |\n", "DESPESA", lancamento.getDescricao(), lancamento.getValor(), dataFormatada);
+            String dataFormatada = lancamentoBase.getVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            if (lancamentoBase instanceof LancamentoDespesa) {
+                System.out.printf(i.get() + "| %s | %10s | %.2f | %s |\n", "DESPESA", lancamentoBase.getDescricao(), lancamentoBase.getValor(), dataFormatada);
             }
             else {
-                System.out.printf(i.get() + "| %s | %10s | %.2f | %s |\n", "RECEITA",lancamento.getDescricao(), lancamento.getValor(),dataFormatada);
+                System.out.printf(i.get() + "| %s | %10s | %.2f | %s |\n", "RECEITA", lancamentoBase.getDescricao(), lancamentoBase.getValor(),dataFormatada);
             }
         });
     }
