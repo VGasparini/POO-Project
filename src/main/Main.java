@@ -4,6 +4,7 @@ import main.domain.lancamento.LancamentoBase;
 import main.domain.menu.Menu;
 import main.domain.user.User;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Main {
         Boolean online = true;
 
         while(online) {
-            Boolean retorno =  menu.menuPrincipal(lancamentos, user);
+            Boolean retorno =  menu.menuPrincipal(lancamentos, user, "C:\\Users\\Pichau\\Desktop\\teste.txt");
             if (!retorno) {
                 online = false;
             }
