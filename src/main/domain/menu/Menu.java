@@ -36,36 +36,19 @@ public class Menu {
                         "10 - Sair do Programa"                  // Funcionando
         );
         switch (user.inputUserInteger()) {
-            case 1:
-                menuCriaLancamento(lista, user);
-                break;
-            case 2:
-                menuEditarLancamento(lista, user);
-                break;
-            case 3:
-                menuRemoveLancamento(lista, user);
-                break;
-            case 4:
-                menuVisualizarLancamentos(lista);
-                break;
-            case 5:
-                menuImportarArquivo(lista, user);
-                break;
-            case 6:
-                menuExportarLancamentos(lista);
-                break;
-            case 7:
-                new Relatorio().RelatorioTotalDespesa(lista);
-                break;
-            case 8:
-                new Relatorio().RelatorioTotalReceita(lista);
-                break;
-            case 9:
-                new Relatorio().RelatorioReceitasMenosDespesas(lista);
-                break;
-            case 10:
+            case 1 -> menuCriaLancamento(lista, user);
+            case 2 -> menuEditarLancamento(lista, user);
+            case 3 -> menuRemoveLancamento(lista, user);
+            case 4 -> menuVisualizarLancamentos(lista);
+            case 5 -> menuImportarArquivo(lista, user);
+            case 6 -> menuExportarLancamentos(lista);
+            case 7 -> new Relatorio().RelatorioTotalDespesa(lista);
+            case 8 -> new Relatorio().RelatorioTotalReceita(lista);
+            case 9 -> new Relatorio().RelatorioReceitasMenosDespesas(lista);
+            case 10 -> {
                 System.out.println("Encerrando Programa...");
                 return false;
+            }
         }
         return true;
     }
