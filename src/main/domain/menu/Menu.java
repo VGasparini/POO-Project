@@ -4,7 +4,10 @@ import main.domain.lancamento.LancamentoBase;
 import main.domain.lancamento.LancamentoDespesa;
 import main.domain.lancamento.LancamentoReceita;
 import main.domain.user.User;
+import main.utils.enums.lancamento.TipoLancamento;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Menu {
@@ -39,6 +43,9 @@ public class Menu {
                 break;
             case 4:
                 menuVisualizarLancamentos(lista);
+                break;
+            case 5:
+                menuImportarArquivo(lista, user);
                 break;
             case 6:
                 menuExportarLancamentos(lista);
@@ -195,6 +202,41 @@ public class Menu {
                 System.out.printf(i.get() + "| %s | %10s | %.2f | %s |\n", "RECEITA", lancamentoBase.getDescricao(), lancamentoBase.getValor(), dataFormatada);
             }
         });
+    }
+
+    private void menuImportarArquivo(List<LancamentoBase> listaDeLancamentos, User user) {
+        try {
+            System.out.println("Digite o caminho do arquivo: ");
+            String caminhoDoArquivo = user.inputUserString();
+
+            File file = new File(caminhoDoArquivo);
+
+            Scanner myReader = new Scanner(file);
+            while (myReader.hasNextLine()) {
+                String linha = myReader.nextLine();
+                String[] listaDeDadosSeparadosPorVigula = linha.split(",");
+
+                LancamentoBase lancamento = null;
+                if (listaDeDadosSeparadosPorVigula[0].equals(TipoLancamento.RECEITA.toString())) {
+                    lancamento = new LancamentoReceita(
+                            listaDeDadosSeparadosPorVigula[1].trim(),
+                            Double.valueOf(listaDeDadosSeparadosPorVigula[2].trim()),
+                            LocalDate.parse(listaDeDadosSeparadosPorVigula[3].trim())
+                    );
+                } else if (listaDeDadosSeparadosPorVigula[0].equals(TipoLancamento.DESPESA.toString())) {
+                    lancamento = new LancamentoDespesa(
+                            listaDeDadosSeparadosPorVigula[1].trim(),
+                            Double.valueOf(listaDeDadosSeparadosPorVigula[2].trim()),
+                            LocalDate.parse(listaDeDadosSeparadosPorVigula[3].trim())
+                    );
+                }
+                listaDeLancamentos.add(lancamento);
+            }
+            System.out.println("Arquivo importado");
+            menuVisualizarLancamentos(listaDeLancamentos);
+        } catch (FileNotFoundException exception) {
+            System.out.println("Arquivo não encontrado");
+        }
     }
 
     private void menuExportarLancamentos(List<LancamentoBase> listaDeLancamentos) {
