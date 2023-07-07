@@ -3,6 +3,7 @@ package main.domain.menu;
 import main.domain.lancamento.LancamentoBase;
 import main.domain.lancamento.LancamentoDespesa;
 import main.domain.lancamento.LancamentoReceita;
+import main.domain.relatorio.Relatorio;
 import main.domain.user.User;
 import main.utils.enums.lancamento.TipoLancamento;
 
@@ -29,7 +30,10 @@ public class Menu {
                         "4 - Visualizar Lançamentos\n" + // Funcionando
                         "5 - Importar Arquivo\n" +
                         "6 - Exportar Arquivo\n" +
-                        "7 - Sair do Programa"                  // Funcionando
+                        "7 - Total Despesas\n" +
+                        "8 - Total Receitas\n" +
+                        "9 - Total Receitas - Despesas\n" +
+                        "10 - Sair do Programa"                  // Funcionando
         );
         switch (user.inputUserInteger()) {
             case 1 -> menuCriaLancamento(lista, user);
@@ -38,7 +42,10 @@ public class Menu {
             case 4 -> menuVisualizarLancamentos(lista);
             case 5 -> menuImportarArquivo(lista, user);
             case 6 -> menuExportarLancamentos(lista);
-            case 7 -> {
+            case 7 -> new Relatorio().RelatorioTotalDespesa(lista);
+            case 8 -> new Relatorio().RelatorioTotalReceita(lista);
+            case 9 -> new Relatorio().RelatorioReceitasMenosDespesas(lista);
+            case 10 -> {
                 System.out.println("Encerrando Programa...");
                 return false;
             }
