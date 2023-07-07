@@ -4,6 +4,7 @@ import main.domain.lancamento.LancamentoBase;
 import main.domain.lancamento.LancamentoDespesa;
 import main.domain.lancamento.LancamentoReceita;
 import main.domain.user.User;
+import main.utils.enums.lancamento.TipoLancamento;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +42,7 @@ public class Menu {
                 menuVisualizarLancamentos(lista);
                 break;
             case 5:
-                menuImportarArquivo(caminhoDoArquivo);
+                menuImportarArquivo(caminhoDoArquivo, lista);
                 break;
             case 7:
                 System.out.println("Encerrando Programa...");
@@ -197,22 +198,37 @@ public class Menu {
         });
     }
 
-    private void menuImportarArquivo(String caminhoDoArquivo) {
+    private List<LancamentoBase> menuImportarArquivo(String caminhoDoArquivo, List<LancamentoBase> listaDeLancamentos) {
         try {
             File file = new File(caminhoDoArquivo);
 
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 String linha = myReader.nextLine();
-                String[] arrayDeDadosSeparadosPorVigula = linha.split(",");
-                for (String dado : arrayDeDadosSeparadosPorVigula) {
-                    System.out.println(dado.trim());
+                String[] listaDeDadosSeparadosPorVigula = linha.split(",");
+
+                LancamentoBase lancamento = null;
+                if (listaDeDadosSeparadosPorVigula[0].equals(TipoLancamento.RECEITA.toString())) {
+                    lancamento = new LancamentoReceita(
+                            listaDeDadosSeparadosPorVigula[1].trim(),
+                            Double.valueOf(listaDeDadosSeparadosPorVigula[2].trim()),
+                            LocalDate.parse(listaDeDadosSeparadosPorVigula[3].trim())
+                    );
+                } else if (listaDeDadosSeparadosPorVigula[0].equals(TipoLancamento.DESPESA.toString())) {
+                    lancamento = new LancamentoDespesa(
+                            listaDeDadosSeparadosPorVigula[1].trim(),
+                            Double.valueOf(listaDeDadosSeparadosPorVigula[2].trim()),
+                            LocalDate.parse(listaDeDadosSeparadosPorVigula[3].trim())
+                    );
                 }
-                System.out.println(linha);
+                listaDeLancamentos.add(lancamento);
             }
+
+            menuVisualizarLancamentos(listaDeLancamentos);
         } catch (FileNotFoundException exception) {
             System.out.println("Arquivo não encontrado");
         }
+        return listaDeLancamentos;
     }
 
 }
