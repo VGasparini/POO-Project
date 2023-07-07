@@ -3,6 +3,7 @@ package main.domain.menu;
 import main.domain.lancamento.LancamentoBase;
 import main.domain.lancamento.LancamentoDespesa;
 import main.domain.lancamento.LancamentoReceita;
+import main.domain.relatorio.Relatorio;
 import main.domain.user.User;
 import main.utils.enums.lancamento.TipoLancamento;
 
@@ -29,19 +30,42 @@ public class Menu {
                         "4 - Visualizar Lançamentos\n" + // Funcionando
                         "5 - Importar Arquivo\n" +
                         "6 - Exportar Arquivo\n" +
-                        "7 - Sair do Programa"                  // Funcionando
+                        "7 - Total Despesas\n" +
+                        "8 - Total Receitas\n" +
+                        "9 - Total Receitas - Despesas\n" +
+                        "10 - Sair do Programa"                  // Funcionando
         );
         switch (user.inputUserInteger()) {
-            case 1 -> menuCriaLancamento(lista, user);
-            case 2 -> menuEditarLancamento(lista, user);
-            case 3 -> menuRemoveLancamento(lista, user);
-            case 4 -> menuVisualizarLancamentos(lista);
-            case 5 -> menuImportarArquivo(lista, user);
-            case 6 -> menuExportarLancamentos(lista);
-            case 7 -> {
+            case 1:
+                menuCriaLancamento(lista, user);
+                break;
+            case 2:
+                menuEditarLancamento(lista, user);
+                break;
+            case 3:
+                menuRemoveLancamento(lista, user);
+                break;
+            case 4:
+                menuVisualizarLancamentos(lista);
+                break;
+            case 5:
+                menuImportarArquivo(lista, user);
+                break;
+            case 6:
+                menuExportarLancamentos(lista);
+                break;
+            case 7:
+                new Relatorio().RelatorioTotalDespesa(lista);
+                break;
+            case 8:
+                new Relatorio().RelatorioTotalReceita(lista);
+                break;
+            case 9:
+                new Relatorio().RelatorioReceitasMenosDespesas(lista);
+                break;
+            case 10:
                 System.out.println("Encerrando Programa...");
                 return false;
-            }
         }
         return true;
     }
