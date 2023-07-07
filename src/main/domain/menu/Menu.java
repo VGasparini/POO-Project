@@ -8,6 +8,9 @@ import main.utils.enums.lancamento.TipoLancamento;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -43,6 +46,9 @@ public class Menu {
                 break;
             case 5:
                 menuImportarArquivo(caminhoDoArquivo, lista);
+                break;
+            case 6:
+                menuExportarLancamentos(lista);
                 break;
             case 7:
                 System.out.println("Encerrando Programa...");
@@ -231,4 +237,25 @@ public class Menu {
         return listaDeLancamentos;
     }
 
+    private void menuExportarLancamentos(List<LancamentoBase> listaDeLancamentos) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("lancamentos.txt"));
+
+            for (LancamentoBase lancamento : listaDeLancamentos) {
+                writer.write(lancamento.getTipo().toString());
+                writer.write(", ");
+                writer.write(lancamento.getDescricao());
+                writer.write(", ");
+                writer.write(lancamento.getValor().toString());
+                writer.write(", ");
+                writer.write(lancamento.getVencimento().toString());
+                writer.newLine();
+            }
+
+            writer.close();
+            System.out.println("Arquivo exportado");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
