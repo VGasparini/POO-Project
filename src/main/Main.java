@@ -16,7 +16,7 @@ public class Main {
         Boolean online = true;
 
         while(online) {
-            Boolean retorno =  menu.menuPrincipal(lancamentos, user, "D:\\ClassPOO\\POO-Project\\tests\\import.txt");
+            Boolean retorno =  menu.menuPrincipal(lancamentos, user);
             if (!retorno) {
                 online = false;
             }

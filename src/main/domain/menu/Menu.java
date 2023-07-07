@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Menu {
 
-    public Boolean menuPrincipal(List<LancamentoBase> lista, User user, String caminhoDoArquivo) {
+    public Boolean menuPrincipal(List<LancamentoBase> lista, User user) {
         System.out.println(
                 "|---| Menu Principal |---|\n" +
                         "1 - Cadastrar Lançamento\n" + // Funcionando
@@ -45,7 +45,7 @@ public class Menu {
                 menuVisualizarLancamentos(lista);
                 break;
             case 5:
-                menuImportarArquivo(caminhoDoArquivo, lista);
+                menuImportarArquivo(lista, user);
                 break;
             case 6:
                 menuExportarLancamentos(lista);
@@ -204,8 +204,11 @@ public class Menu {
         });
     }
 
-    private List<LancamentoBase> menuImportarArquivo(String caminhoDoArquivo, List<LancamentoBase> listaDeLancamentos) {
+    private void menuImportarArquivo(List<LancamentoBase> listaDeLancamentos, User user) {
         try {
+            System.out.println("Digite o caminho do arquivo: ");
+            String caminhoDoArquivo = user.inputUserString();
+
             File file = new File(caminhoDoArquivo);
 
             Scanner myReader = new Scanner(file);
@@ -229,12 +232,11 @@ public class Menu {
                 }
                 listaDeLancamentos.add(lancamento);
             }
-
+            System.out.println("Arquivo importado");
             menuVisualizarLancamentos(listaDeLancamentos);
         } catch (FileNotFoundException exception) {
             System.out.println("Arquivo não encontrado");
         }
-        return listaDeLancamentos;
     }
 
     private void menuExportarLancamentos(List<LancamentoBase> listaDeLancamentos) {
