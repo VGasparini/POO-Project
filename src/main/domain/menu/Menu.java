@@ -28,34 +28,26 @@ public class Menu {
                         "7 - Sair do Programa"                  // Funcionando
         );
         switch (user.inputUserInteger()) {
-            case 1:
-                menuCriaLancamento(lista, user);
-                break;
-            case 2:
-                menuEditarLancamento(lista, user);
-                break;
-            case 3:
-                menuRemoveLancamento(lista, user);
-                break;
-            case 4:
-                menuVisualizarLancamentos(lista);
-                break;
-            case 6:
-                menuExportarLancamentos(lista);
-                break;
-            case 7:
+            case 1 -> menuCriaLancamento(lista, user);
+            case 2 -> menuEditarLancamento(lista, user);
+            case 3 -> menuRemoveLancamento(lista, user);
+            case 4 -> menuVisualizarLancamentos(lista);
+            case 6 -> menuExportarLancamentos(lista);
+            case 7 -> {
                 System.out.println("Encerrando Programa...");
                 return false;
+            }
         }
         return true;
     }
 
     public void menuCriaLancamento(List<LancamentoBase> lista, User user) {
         List<Object> array = new ArrayList<>();
-        System.out.println("|---| Cadastrar Lançamento |---|\n" +
-                "1 - DESPESA\n" +
-                "2 - RECEITA\n" +
-                "Opção:");
+        System.out.println("""
+                |---| Cadastrar Lançamento |---|
+                1 - DESPESA
+                2 - RECEITA
+                Opção:""");
         array.add(user.inputUserInteger());
 
         System.out.println("Digite uma descrição: ");
@@ -73,17 +65,11 @@ public class Menu {
         array.add(user.inputUserInteger());
 
         switch ((Integer) array.get(0)) {
-            case 1:
-                lista.add(new LancamentoDespesa((String) array.get(1),
-                        (Double) array.get(2), (Integer) array.get(3), (Integer) array.get(4), (Integer) array.get(5)));
-                break;
-            case 2:
-                lista.add(new LancamentoReceita((String) array.get(1),
-                        (Double) array.get(2), (Integer) array.get(3), (Integer) array.get(4), (Integer) array.get(5)));
-                break;
-            default:
-                System.out.println("Não foi adicionado nenhum lançamento!");
-                break;
+            case 1 -> lista.add(new LancamentoDespesa((String) array.get(1),
+                    (Double) array.get(2), (Integer) array.get(3), (Integer) array.get(4), (Integer) array.get(5)));
+            case 2 -> lista.add(new LancamentoReceita((String) array.get(1),
+                    (Double) array.get(2), (Integer) array.get(3), (Integer) array.get(4), (Integer) array.get(5)));
+            default -> System.out.println("Não foi adicionado nenhum lançamento!");
         }
     }
 
@@ -94,17 +80,19 @@ public class Menu {
         System.out.println("Digite o numero do lançamento que gostaria de editar:\n" +
                 "Opção: ");
         lancamentoParaEditar = user.inputUserInteger();
-        System.out.println("Qual campo gostaria de editar?\n" +
-                "1 - Tipo\n" +
-                "2 - Descrição\n" +
-                "3 - Valor\n" +
-                "4 - Vencimento\n" +
-                "Opção: ");
+        System.out.println("""
+                Qual campo gostaria de editar?
+                1 - Tipo
+                2 - Descrição
+                3 - Valor
+                4 - Vencimento
+                Opção:\s""");
         switch (user.inputUserInteger()) {
-            case 1:
-                System.out.println("Deseja alterar o lancamento para qual tipo?\n" +
-                        "1 - DESPESA\n" +
-                        "2 - RECEITA");
+            case 1 -> {
+                System.out.println("""
+                        Deseja alterar o lancamento para qual tipo?
+                        1 - DESPESA
+                        2 - RECEITA""");
                 tipoEditado = user.inputUserInteger();
                 if (tipoEditado == 1) {
                     lista.add(lancamentoParaEditar - 1, new LancamentoDespesa(
@@ -120,28 +108,25 @@ public class Menu {
                     ));
                 }
                 lista.remove(lancamentoParaEditar.intValue());
-                break;
-
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Digite a nova descrição: ");
                 lista.get(lancamentoParaEditar - 1).setDescricao(user.inputUserString());
-                break;
-
-            case 3:
+            }
+            case 3 -> {
                 System.out.println("Digite o novo valor: ");
                 lista.get(lancamentoParaEditar - 1).setValor(user.inputUserDouble());
-                break;
-
-            case 4:
-                System.out.println("Deseja alterar:\n" +
-                        "1 - Dia\n" +
-                        "2 - Mês\n" +
-                        "3 - Ano\n" +
-                        "Opção: ");
+            }
+            case 4 -> {
+                System.out.println("""
+                        Deseja alterar:
+                        1 - Dia
+                        2 - Mês
+                        3 - Ano
+                        Opção:\s""");
                 Integer valor;
-
                 switch (user.inputUserInteger()) {
-                    case 1:
+                    case 1 -> {
                         System.out.println("Digite o novo dia: ");
                         valor = user.inputUserInteger();
                         lista.get(lancamentoParaEditar - 1).setVencimento(LocalDate.of(
@@ -149,9 +134,8 @@ public class Menu {
                                 lista.get(lancamentoParaEditar - 1).getVencimento().getMonth(),
                                 valor
                         ));
-                        break;
-
-                    case 2:
+                    }
+                    case 2 -> {
                         System.out.println("Digite o novo mês: ");
                         valor = user.inputUserInteger();
                         lista.get(lancamentoParaEditar - 1).setVencimento(LocalDate.of(
@@ -159,9 +143,8 @@ public class Menu {
                                 valor,
                                 lista.get(lancamentoParaEditar - 1).getVencimento().getDayOfMonth()
                         ));
-                        break;
-
-                    case 3:
+                    }
+                    case 3 -> {
                         System.out.println("Digite o novo ano: ");
                         valor = user.inputUserInteger();
                         lista.get(lancamentoParaEditar - 1).setVencimento(LocalDate.of(
@@ -169,9 +152,9 @@ public class Menu {
                                 lista.get(lancamentoParaEditar - 1).getVencimento().getMonth(),
                                 lista.get(lancamentoParaEditar - 1).getVencimento().getDayOfMonth()
                         ));
-                        break;
+                    }
                 }
-                break;
+            }
         }
     }
 
