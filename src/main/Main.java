@@ -4,7 +4,6 @@ import main.domain.lancamento.LancamentoBase;
 import main.domain.menu.Menu;
 import main.domain.user.User;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

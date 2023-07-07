@@ -32,27 +32,16 @@ public class Menu {
                         "7 - Sair do Programa"                  // Funcionando
         );
         switch (user.inputUserInteger()) {
-            case 1:
-                menuCriaLancamento(lista, user);
-                break;
-            case 2:
-                menuEditarLancamento(lista, user);
-                break;
-            case 3:
-                menuRemoveLancamento(lista, user);
-                break;
-            case 4:
-                menuVisualizarLancamentos(lista);
-                break;
-            case 5:
-                menuImportarArquivo(lista, user);
-                break;
-            case 6:
-                menuExportarLancamentos(lista);
-                break;
-            case 7:
+            case 1 -> menuCriaLancamento(lista, user);
+            case 2 -> menuEditarLancamento(lista, user);
+            case 3 -> menuRemoveLancamento(lista, user);
+            case 4 -> menuVisualizarLancamentos(lista);
+            case 5 -> menuImportarArquivo(lista, user);
+            case 6 -> menuExportarLancamentos(lista);
+            case 7 -> {
                 System.out.println("Encerrando Programa...");
                 return false;
+            }
         }
         return true;
     }
